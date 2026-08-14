@@ -1,3 +1,8 @@
+// Importa a instância única (Singleton) do DAO
+// (atenção às maiúsculas: DAO/MusicaDAO)
+const musicaDAO = require('./DAO/MusicaDAO');
+
+
 // 1. Importar o Express
 const express = require('express');
 
