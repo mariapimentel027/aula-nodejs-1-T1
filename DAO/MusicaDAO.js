@@ -10,11 +10,18 @@ class MusicaDAO {
     }
 
     _carregarDadosIniciais() {
-    const evidencias = this.inserir('Evidencias', 'Chitao e Xororo');
-    evidencias.addParte('fsdfsdfsdfsd',);
+    const beijinhodoce = this.inserir('Beijinho Doce', 'As Galvão');
+    evidencias.addParte('Que beijinho doce que ele tem',);
+
     const aindaontem = this.inserir('Ainda Ontem Chorei de Saudade', 'João Mineiro e Marciano');
     evidencias.addParte('Você me pede na carta', 'Que eu desapareça', 'Que eu nunca mais te procure',
-        'Pra sempre te esqueça'
+        'Pra sempre te esqueça', 'Posso fazer sua vontade', 'Atender seu pedido', 'Mas esquecer é bobagem', 'É tempo perdido', 
+        'Ainda ontem chorei de saudade', 'Relendo a carta, sentindo o perfume', 'Mas que fazer com essa dor que me invade?', 
+        'Mato esse amor ou me mata o ciúme', 'O dia inteiro te odeio', 'Te busco e te caço', 
+        'Mas em meu sonho, de noite', 'Eu te beijo e te abraço', 'Porque os sonhos são meus',
+        'Ninguém rouba e nem tira', 'Melhor sonhar na verdade', 'Que amar na mentira', 'Ainda ontem chorei de saudade',
+        'Relendo a carta, sentindo o perfume', 'Mas que fazer com essa dor que me invade?', 
+        'Mato esse amor ou me mata o ciúme'
     );
 
     }
