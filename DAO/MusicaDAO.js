@@ -6,6 +6,17 @@ class MusicaDAO {
         // "banco de dados" em memória — array de objetos Musica
         this.musicas = [];
         this.proximoId = 0;
+        this._carregarDadosIniciais();
+    }
+
+    _carregarDadosIniciais() {
+    const evidencias = this.inserir('Evidencias', 'Chitao e Xororo');
+    evidencias.addParte('fsdfsdfsdfsd',);
+    const aindaontem = this.inserir('Ainda Ontem Chorei de Saudade', 'João Mineiro e Marciano');
+    evidencias.addParte('Você me pede na carta', 'Que eu desapareça', 'Que eu nunca mais te procure',
+        'Pra sempre te esqueça'
+    );
+
     }
 
     // Retorna todas as músicas

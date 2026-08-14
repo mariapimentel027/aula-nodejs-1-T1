@@ -102,3 +102,12 @@ app.post('/musicas/:id/partes', (req, res) =>{
 
 
 app.listen(3000, ()=>{ console.log(`Servidor inciado.`) });
+
+// Middleware de erro — deve ser o último app.use() SEM ERROS
+app.use((err, req, res, next) => {
+console.error('Erro no servidor:', err.message);
+if (err.status === 400) {
+return res.status(400).json({ erro: 'JSON inválido no corpo da requisição' });
+}
+res.status(500).json({ erro: 'Erro interno do servidor' });
+});
