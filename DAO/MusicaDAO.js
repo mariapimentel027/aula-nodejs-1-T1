@@ -11,7 +11,10 @@ class MusicaDAO {
 
     _carregarDadosIniciais() {
     const beijinhodoce = this.inserir('Beijinho Doce', 'As Galvão');
-    evidencias.addParte('Que beijinho doce que ele tem',);
+    evidencias.addParte('Que beijinho doce que ele tem', 'Depois que beijei ele', 'Nunca mais amei ninguém',
+        'Que beijinho doce foi ele','Quem trouxe de longe pra mim','Se me abraça apertado, suspiro dobrado',
+        'Que amor sem fim', 'Coração quem manda','Quando a gente ama','Se estou junto dele','Sem dar um beijinho coração reclama'
+    );
 
     const aindaontem = this.inserir('Ainda Ontem Chorei de Saudade', 'João Mineiro e Marciano');
     evidencias.addParte('Você me pede na carta', 'Que eu desapareça', 'Que eu nunca mais te procure',
