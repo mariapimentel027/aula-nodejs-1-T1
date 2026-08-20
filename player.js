@@ -1,79 +1,48 @@
-const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+//script principal
 
-let musicaAtual = null;
+const { sleep } = require('./utils');
+const { Musica } = require('./musica');
+const { Parte } = require('./parte');
 
-// Elementos adaptados com os IDs exatos do seu index.html
-const listaEl = document.getElementById('lista-musicas');
-const tituloEl = document.getElementById('nomeMusica');
-const artistaEl = document.getElementById('artista');
-const tagEl = document.getElementById('tag');
-const letraEl = document.getElementById('letra');
-const contadorEl = document.getElementById('contador');
-const btnTocar = document.getElementById('btnTocar');
+const musica = new Musica('My Hero', 'Foo Fighters');
+const tooAlarmin = 'Too alarmin now to talk about \n Take your pictures down and shake it out';
+const truthOrCon = 'Truth or consequence, say it aloud \n Use that evidence, race it around';
+const thereGoes = 'There goes my hero';
+const watchHim = 'Watch him as he goes';
+const hesOrdinary = 'He\'s ordinary';
+const dontTheBest = 'Don\'t the best of them bleed it out';
+const whileTheRest = 'While the rest of them peter out?';
+const kudos = 'Kudos, my hero \nLeavin all the best';
+const youKnow = 'You know my hero \nThe one thats on';
+//verificar partes faltantes e criar.
 
-// 1. Busca a lista de músicas do servidor
-async function carregarPlaylist() {
-  if (!listaEl) return;
+//começa a adicionar as partes da música, com letra, tempo e tag1
+musica.addParte(
+    new Parte(tooAlarmin, 4000, 'verso1')
+);
+musica.addParte(
+    new Parte(truthOrCon, 4000, 'verso2')
+);
 
-  try {
-    const resposta = await fetch('/api/musicas');
-    const musicas = await resposta.json();
+//segue adicionando as partes
 
-    listaEl.innerHTML = '';
-    musicas.forEach((musica) => {
-      const item = document.createElement('li');
-      item.textContent = `${musica.nome} — ${musica.artista}`;
-      item.style.cursor = 'pointer';
-      
-      item.addEventListener('click', () => escolherMusica(musica.id));
-      listaEl.appendChild(item);
-    });
-  } catch (erro) {
-    console.error('Erro ao carregar playlist:', erro);
-  }
+
+async function play() {
+    try {
+        // para cada parte da música, deve imprimir qual parte é, letra e pausar o tempo necessário
+        //ex.:
+       
+        for (const parte of musica.partes) {
+            //imprime parte e letra
+            console.log( " -- " + parte.tag + " --" );
+            console.log( "> " + parte.letra );
+            //agurda o tempo para a letra
+            await sleep( parte.tempoEspera );
+            
+        }
+    } catch (error) {
+        console.log("Erro ao tocar música: " + error.message);
+    }
 }
 
-// 2. Busca os detalhes da música selecionada pelo ID
-async function escolherMusica(id) {
-  try {
-    const resposta = await fetch(`/api/musicas/${id}`);
-    musicaAtual = await resposta.json();
-
-    if (tituloEl) tituloEl.textContent = musicaAtual.nome;
-    if (artistaEl) artistaEl.textContent = musicaAtual.artista;
-    if (tagEl) tagEl.textContent = '';
-    if (letraEl) letraEl.textContent = 'Clique em Tocar para iniciar...';
-    if (contadorEl) contadorEl.textContent = '';
-
-    if (btnTocar) btnTocar.disabled = false;
-  } catch (erro) {
-    console.error('Erro ao escolher música:', erro);
-  }
-}
-
-// 3. Toca as letras da música no palco
-async function tocar() {
-  if (!musicaAtual || !musicaAtual.partes) return;
-
-  if (btnTocar) btnTocar.disabled = true;
-
-  for (let i = 0; i < musicaAtual.partes.length; i++) {
-    const parte = musicaAtual.partes[i];
-
-    if (tagEl) tagEl.textContent = parte.tag || '';
-    if (letraEl) letraEl.textContent = parte.letra;
-    if (contadorEl) contadorEl.textContent = `Parte ${i + 1} de ${musicaAtual.partes.length}`;
-
-    await sleep(parte.tempoEspera);
-  }
-
-  if (tagEl) tagEl.textContent = 'FIM';
-  if (letraEl) letraEl.textContent = '🎤 Fim! Escolha outra música.';
-  if (btnTocar) btnTocar.disabled = false;
-}
-
-if (btnTocar) {
-  btnTocar.addEventListener('click', tocar);
-}
-
-document.addEventListener('DOMContentLoaded', carregarPlaylist);
+module.exports = {musica, play};
