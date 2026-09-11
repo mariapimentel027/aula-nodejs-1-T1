@@ -1,0 +1,1363 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Programação III - Material Didático</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Fira+Code:wght@400;500&display=swap');
+
+    :root {
+      --ifsul-verde: #2f9e41;
+      --ifsul-verde-escuro: #1d7a2d;
+      --ifsul-vermelho: #cd191e;
+      --bg: #f4f6f8;
+      --texto: #1f2933;
+      --muted: #6b7c86;
+      --borda: #d9e2e8;
+      --superficie: #ffffff;
+      --codigo-bg: #f7faf9;
+    }
+
+    /* @theme ifsul */
+
+@import 'default';
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap');
+
+:root {
+    --ifsul-verde: #007941;
+    --ifsul-verde-esc: #005a30;
+    --ifsul-verde-clr: #e6f4ed;
+    --ifsul-branco: #ffffff;
+    --ifsul-cinza: #f4f6f8;
+    --ifsul-texto: #020213;
+    --ifsul-destaque: #00a651;
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+}
+
+/* ═══════════════ SLIDE BASE ═══════════════ */
+section {
+    background: var(--ifsul-branco);
+    color: var(--ifsul-texto);
+    font-size: 22px;
+    padding: 48px 56px;
+    line-height: 1.55;
+}
+
+/* Borda sutil esquerda verde em todos os slides */
+section::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 6px;
+    background: var(--ifsul-verde);
+}
+
+/* ═══════════════ SLIDE DE CAPA (lead) ═══════════════ */
+section.lead {
+    background: linear-gradient(145deg, var(--ifsul-verde-esc) 0%, var(--ifsul-verde) 60%, var(--ifsul-destaque) 100%);
+    color: var(--ifsul-branco);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 60px 72px;
+}
+
+section.lead::before {
+    display: none;
+}
+
+section.lead h1 {
+    font-size: 2.2em;
+    font-weight: 700;
+    color: var(--ifsul-branco);
+    border: none;
+    margin-bottom: 12px;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+section.lead h2 {
+    font-size: 1.2em;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.85);
+    border: none;
+    margin-top: 0;
+}
+
+section.lead p {
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 0.85em;
+    margin-top: 24px;
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    padding-top: 16px;
+    width: 100%;
+}
+
+/* ═══════════════ SLIDE SEÇÃO (section-title) ═══════════════ */
+section.secao {
+    background: var(--ifsul-cinza);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+section.secao h2 {
+    font-size: 2em;
+    color: var(--ifsul-verde);
+    border-left: 8px solid var(--ifsul-verde);
+    padding-left: 24px;
+    border-bottom: none;
+    margin-left: -24px;
+}
+
+/* ═══════════════ TIPOGRAFIA GERAL ═══════════════ */
+h1,
+h2,
+h3 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+}
+
+h1 {
+    font-size: 1.8em;
+    color: var(--ifsul-verde-esc);
+    border-bottom: 3px solid var(--ifsul-verde);
+    padding-bottom: 8px;
+}
+
+h2 {
+    font-size: 1.4em;
+    color: var(--ifsul-verde);
+    border-bottom: 1px solid #dde4e0;
+    padding-bottom: 6px;
+}
+
+h3 {
+    font-size: 1.1em;
+    color: var(--ifsul-verde-esc);
+}
+
+strong {
+    color: var(--ifsul-verde-esc);
+}
+
+/* ═══════════════ CÓDIGO ═══════════════ */
+code {
+    font-family: 'Fira Code', 'Consolas', monospace;
+    background: #ddeee6;
+    /* verde suave — contraste 4.8:1 sobre #fff */
+    color: #003d20;
+    /* verde muito escuro — WCAG AA */
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-size: 0.85em;
+    font-weight: 500;
+}
+
+pre {
+    background: #e4f2eb;
+    /* verde suave, consistente com a identidade */
+    border-radius: 8px;
+    padding: 20px 24px;
+    border-left: 4px solid var(--ifsul-verde);
+    margin: 16px 0;
+    overflow: hidden;
+    box-shadow: inset 0 0 0 1px rgba(0, 121, 65, 0.15);
+}
+
+pre code {
+    background: transparent;
+    color: #002a16;
+    /* verde quase-preto — contraste 11:1 sobre #e4f2eb */
+    font-size: 0.78em;
+    font-weight: 400;
+    padding: 0;
+    line-height: 1.7;
+}
+
+/* ═══════════════ BLOCOS ESPECIAIS ═══════════════ */
+blockquote {
+    background: var(--ifsul-verde-clr);
+    border-left: 5px solid var(--ifsul-verde);
+    border-radius: 0 8px 8px 0;
+    padding: 12px 20px;
+    color: var(--ifsul-verde-esc);
+    font-style: normal;
+    font-size: 0.9em;
+    margin: 12px 0;
+}
+
+/* ═══════════════ TABELA ═══════════════ */
+table {
+    width: 100%;
+    font-size: 0.8em;
+    border-collapse: collapse;
+}
+
+thead tr {
+    background: var(--ifsul-verde);
+    color: white;
+}
+
+thead th {
+    padding: 10px 14px;
+    font-weight: 600;
+}
+
+tbody tr:nth-child(even) {
+    background: var(--ifsul-cinza);
+}
+
+tbody td {
+    padding: 8px 14px;
+    border-bottom: 1px solid #dde4e0;
+}
+
+/* ═══════════════ LISTAS ═══════════════ */
+ul li,
+ol li {
+    margin: 6px 0;
+    padding-left: 4px;
+}
+
+ul li::marker {
+    color: var(--ifsul-verde);
+}
+
+/* ═══════════════ RODAPÉ ═══════════════ */
+footer {
+    font-size: 0.65em;
+    color: #8a9a93;
+}
+
+/* ═══════════════ NUMERAÇÃO ═══════════════ */
+section::after {
+    font-size: 0.7em;
+    color: #b0bdb8;
+}
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: linear-gradient(180deg, #eef5ef 0%, var(--bg) 220px);
+      color: var(--texto);
+      font-family: 'Open Sans', sans-serif;
+      line-height: 1.7;
+      padding: 32px 16px 48px;
+    }
+
+    .page {
+      max-width: 980px;
+      margin: 0 auto;
+      background: var(--superficie);
+      border-radius: 16px;
+      box-shadow: 0 18px 60px rgba(15, 23, 42, 0.08);
+      overflow: hidden;
+      border: 1px solid rgba(47, 158, 65, 0.12);
+    }
+
+    .hero {
+      padding: 28px 32px 20px;
+      background:
+        linear-gradient(135deg, rgba(47, 158, 65, 0.14), rgba(29, 122, 45, 0.06)),
+        linear-gradient(180deg, #ffffff, #f7fbf8);
+      border-bottom: 1px solid var(--borda);
+    }
+
+    .hero-top {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 20px;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      line-height: 1.15;
+      color: var(--ifsul-verde-escuro);
+    }
+
+    .hero p {
+      margin: 14px 0 0;
+      color: #41515b;
+      max-width: 70ch;
+    }
+
+    .meta {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .meta-card {
+      border: 1px solid var(--borda);
+      border-radius: 12px;
+      padding: 12px 14px;
+      background: rgba(255, 255, 255, 0.72);
+    }
+
+    .meta-card strong {
+      display: block;
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    main {
+      padding: 32px;
+    }
+
+    main h1,
+    main h2,
+    main h3,
+    main h4,
+    main h5,
+    main h6 {
+      color: var(--ifsul-verde-escuro);
+      line-height: 1.25;
+    }
+
+    main h1 { font-size: 2rem; }
+    main h2 {
+      font-size: 1.5rem;
+      margin-top: 2.3rem;
+      padding-top: 0.6rem;
+      border-top: 1px solid rgba(47, 158, 65, 0.18);
+    }
+    main h3 { font-size: 1.2rem; margin-top: 1.8rem; }
+
+    p, ul, ol, table, blockquote, pre {
+      margin: 1rem 0;
+    }
+
+    code, pre code {
+      font-family: 'Fira Code', monospace;
+    }
+
+    code {
+      background: rgba(47, 158, 65, 0.08);
+      color: #14532d;
+      padding: 0.12rem 0.35rem;
+      border-radius: 6px;
+      font-size: 0.92em;
+    }
+
+    pre {
+      background: #f8faf9;
+      border: 1px solid rgba(47, 158, 65, 0.18);
+      border-left: 5px solid var(--ifsul-verde);
+      border-radius: 12px;
+      padding: 16px 18px;
+      overflow-x: auto;
+      color: #1f2933;
+    }
+
+    pre code {
+      background: transparent;
+      color: inherit;
+      padding: 0;
+      font-size: 0.88em;
+      line-height: 1.6;
+    }
+
+    /* Syntax highlighting — light theme (print-friendly) */
+    .hljs-keyword,
+    .hljs-selector-tag { color: #8839ef; }
+    .hljs-built_in { color: #1e66f5; }
+    .hljs-string,
+    .hljs-attr { color: #40a02b; }
+    .hljs-number,
+    .hljs-literal { color: #d2691e; }
+    .hljs-comment { color: #7c7f93; font-style: italic; }
+    .hljs-function .hljs-title,
+    .hljs-title.function_ { color: #1e66f5; }
+    .hljs-variable,
+    .hljs-params { color: #1f2933; }
+    .hljs-operator,
+    .hljs-punctuation { color: #04a5e5; }
+    .hljs-meta,
+    .hljs-tag { color: #d20f39; }
+    .hljs-name { color: #d20f39; }
+    .hljs-attribute { color: #df8e1d; }
+    .hljs-regexp { color: #ea76cb; }
+    .hljs-type,
+    .hljs-title.class_ { color: #df8e1d; }
+
+    blockquote {
+      margin-left: 0;
+      padding: 14px 16px;
+      border-left: 4px solid var(--ifsul-verde);
+      background: rgba(47, 158, 65, 0.06);
+      color: #244234;
+      border-radius: 0 12px 12px 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 12px;
+      border: 1px solid var(--borda);
+      font-size: 0.95rem;
+    }
+
+    thead th {
+      background: var(--ifsul-verde);
+      color: white;
+      text-align: left;
+    }
+
+    th, td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--borda);
+      vertical-align: top;
+    }
+
+    tbody tr:nth-child(even) {
+      background: #fafcfb;
+    }
+
+    a {
+      color: var(--ifsul-verde-escuro);
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      padding: 18px 32px 28px;
+      border-top: 1px solid var(--borda);
+      color: var(--muted);
+      font-size: 0.82rem;
+      background: #fbfcfc;
+    }
+
+    @media (max-width: 800px) {
+      body {
+        padding: 18px 10px 28px;
+      }
+
+      .hero,
+      main,
+      footer {
+        padding-left: 18px;
+        padding-right: 18px;
+      }
+
+      .page {
+        border-radius: 12px;
+      }
+    }
+
+    @media print {
+      body {
+        background: white;
+        padding: 0;
+      }
+
+      .page {
+        box-shadow: none;
+        border: none;
+      }
+
+      .hero {
+        background: white;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      pre,
+      blockquote,
+      table,
+      img {
+        page-break-inside: avoid;
+      }
+
+      @page {
+        size: A4;
+        margin: 1.8cm;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <section class="hero">
+      <div class="hero-top">
+        <span>IFSul - Campus Passo Fundo</span>
+        <span>Ensino Médio Integrado</span>
+      </div>
+      <h1>Programação III</h1>
+      <div class="meta">
+        <div class="meta-card"><strong>Professor</strong>Élder F. F. Bernardi</div>
+        <div class="meta-card"><strong>Curso</strong>Ensino Médio Integrado - Técnico em Informática</div>
+      </div>
+    </section>
+    <main>
+      <h1>03 — Express.js: Criando um Webservice REST do Zero</h1>
+<p><strong>Disciplina:</strong> Programação III
+<strong>Curso:</strong> Ensino Médio Integrado — Técnico em Informática
+<strong>Instituição:</strong> IFSul - Campus Passo Fundo</p>
+<hr>
+<h2>Pré-requisitos</h2>
+<ul>
+<li>Leitura do material <a href="./metafora_restaurante_http.md">A Metáfora do Restaurante: Entendendo o Protocolo HTTP</a></li>
+<li>Node.js instalado</li>
+<li>Noções básicas de JavaScript (objetos, arrays, funções)</li>
+<li>Material anterior: <a href="./02_configuracao_servidor_web.md">02 - Configuração de Servidor Web</a></li>
+</ul>
+<hr>
+<h2>1. Recapitulando: o restaurante HTTP</h2>
+<p>Na aula anterior, comparamos a Web a um restaurante. Recapitulando os personagens:</p>
+<table>
+<thead>
+<tr>
+<th>Personagem</th>
+<th>Na Web</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Cliente (você na mesa)</td>
+<td>Navegador, Insomnia, Thunder Client</td>
+</tr>
+<tr>
+<td>Garçom (HTTP)</td>
+<td>O protocolo que padroniza a conversa</td>
+</tr>
+<tr>
+<td>Cozinha (Servidor)</td>
+<td>O programa Node.js que processa pedidos</td>
+</tr>
+<tr>
+<td>Bilhete de pedido</td>
+<td>A<strong>Requisição</strong> (Request)</td>
+</tr>
+<tr>
+<td>Prato que volta à mesa</td>
+<td>A<strong>Resposta</strong> (Response)</td>
+</tr>
+</tbody></table>
+<p>O garçom só aceita bilhetes padronizados. Cada bilhete tem um <strong>verbo</strong> indicando o que o cliente quer:</p>
+<table>
+<thead>
+<tr>
+<th>Verbo HTTP</th>
+<th>Ação no restaurante</th>
+<th>Ação na API</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>GET</code></td>
+<td>&quot;Me traga o cardápio&quot;</td>
+<td>Ler dados</td>
+</tr>
+<tr>
+<td><code>POST</code></td>
+<td>&quot;Anote um pedido novo&quot;</td>
+<td>Criar dados</td>
+</tr>
+<tr>
+<td><code>PUT</code></td>
+<td>&quot;Substitua o prato 5 por um novo&quot;</td>
+<td>Atualizar dados (completo)</td>
+</tr>
+<tr>
+<td><code>DELETE</code></td>
+<td>&quot;Cancele o pedido 8&quot;</td>
+<td>Remover dados</td>
+</tr>
+</tbody></table>
+<p>A cozinha sempre responde com um <strong>código de status</strong>:</p>
+<ul>
+<li><strong>200</strong> — Pedido entregue com sucesso</li>
+<li><strong>201</strong> — Pedido novo registrado</li>
+<li><strong>400</strong> — Bilhete com letra ilegível (dados inválidos)</li>
+<li><strong>404</strong> — Prato não encontrado no cardápio</li>
+<li><strong>500</strong> — A cozinha pegou fogo (erro interno)</li>
+</ul>
+<p>Esses conceitos são a base de tudo que faremos a partir de agora. Se algo não ficou claro, releia o material da metáfora antes de continuar.</p>
+<hr>
+<h2>2. Express.js: o framework que monta o restaurante</h2>
+<p>No material anterior, vimos que o Express funciona como o &quot;painel de controle&quot; do Node.js. Sem ele, teríamos que tratar manualmente as Strings brutas do protocolo HTTP. Com ele, definimos regras claras e legíveis.</p>
+<p>A estrutura mínima de um servidor Express segue sempre o mesmo esqueleto:</p>
+<pre><code class="hljs language-javascript"><span class="hljs-comment">// 1. Importar o Express</span>
+<span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;express&#x27;</span>);
+
+<span class="hljs-comment">// 2. Criar a aplicação (a &quot;loja&quot;)</span>
+<span class="hljs-keyword">const</span> app = <span class="hljs-title function_">express</span>();
+
+<span class="hljs-comment">// 3. Configurar middlewares (pré-processamento)</span>
+app.<span class="hljs-title function_">use</span>(express.<span class="hljs-title function_">json</span>());
+
+<span class="hljs-comment">// 4. Definir rotas (os &quot;balcões de atendimento&quot;)</span>
+app.<span class="hljs-title function_">get</span>(<span class="hljs-string">&#x27;/&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =&gt;</span> {
+    res.<span class="hljs-title function_">send</span>(<span class="hljs-string">&#x27;Servidor funcionando&#x27;</span>);
+});
+
+<span class="hljs-comment">// 5. Abrir a loja (escutar a porta)</span>
+app.<span class="hljs-title function_">listen</span>(<span class="hljs-number">3000</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;Servidor rodando em http://localhost:3000&#x27;</span>);
+});</code></pre><p>Cada parte tem uma função específica:</p>
+<table>
+<thead>
+<tr>
+<th>Etapa</th>
+<th>O que faz</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>require(&#39;express&#39;)</code></td>
+<td>Carrega a biblioteca no programa</td>
+</tr>
+<tr>
+<td><code>express()</code></td>
+<td>Cria a instância da aplicação</td>
+</tr>
+<tr>
+<td><code>app.use(...)</code></td>
+<td>Registra<strong>middlewares</strong> (processamentos intermediários)</td>
+</tr>
+<tr>
+<td><code>app.get(...)</code>, <code>app.post(...)</code> etc.</td>
+<td>Define<strong>rotas</strong> — cada rota é um &quot;balcão&quot;</td>
+</tr>
+<tr>
+<td><code>app.listen(porta)</code></td>
+<td>Abre o servidor para receber conexões</td>
+</tr>
+</tbody></table>
+<h3>O que é um middleware?</h3>
+<p>Na metáfora do restaurante, pense no middleware como o <strong>maître</strong> que recebe cada cliente antes de encaminhá-lo à mesa. Ele verifica o traje, confere a reserva, organiza os acompanhantes. Só depois disso o cliente chega ao garçom.</p>
+<p>No Express, middlewares processam a requisição antes de ela chegar às rotas. O mais comum:</p>
+<pre><code class="hljs language-javascript">app.<span class="hljs-title function_">use</span>(express.<span class="hljs-title function_">json</span>());</code></pre><p>Essa linha diz: <em>&quot;Toda requisição que chegar com corpo em formato JSON, converta automaticamente para um objeto JavaScript.&quot;</em> Sem isso, o <code>req.body</code> ficaria <code>undefined</code>.</p>
+<hr>
+<h2>3. Caso prático: a API do Karaokê</h2>
+<p>Vamos construir uma API REST completa para a aplicação do Karaokê que já conhecemos. A API vai gerenciar uma música e suas partes (versos, refrões).</p>
+<p>O projeto já tem uma estrutura de arquivos que separa responsabilidades. Vamos aproveitá-la.</p>
+<h3>3.1 Estrutura de dados</h3>
+<p>Já temos duas classes prontas:</p>
+<p><strong><code>parte.js</code></strong> — representa um trecho da música:</p>
+<pre><code class="hljs language-javascript"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Parte</span> {
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">letra, tempoEspera, tag</span>) {
+        <span class="hljs-variable language_">this</span>.<span class="hljs-property">letra</span> = letra;        <span class="hljs-comment">// texto do trecho</span>
+        <span class="hljs-variable language_">this</span>.<span class="hljs-property">tempoEspera</span> = tempoEspera; <span class="hljs-comment">// milissegundos na tela</span>
+        <span class="hljs-variable language_">this</span>.<span class="hljs-property">tag</span> = tag;            <span class="hljs-comment">// identificador: &quot;verso1&quot;, &quot;refrão1&quot; etc.</span>
+    }
+}
+
+<span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = { <span class="hljs-title class_">Parte</span> };</code></pre><p><strong><code>musica.js</code></strong> — representa a música completa, com uma lista de partes:</p>
+<pre><code class="hljs language-javascript"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Musica</span> {
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">nome, artista</span>) {
+        <span class="hljs-variable language_">this</span>.<span class="hljs-property">nome</span> = nome;
+        <span class="hljs-variable language_">this</span>.<span class="hljs-property">artista</span> = artista;
+        <span class="hljs-variable language_">this</span>.<span class="hljs-property">partes</span> = [];
+    }
+
+    <span class="hljs-title function_">addParte</span>(<span class="hljs-params">parte</span>) {
+        <span class="hljs-keyword">try</span> {
+            <span class="hljs-keyword">if</span> (!parte.<span class="hljs-property">letra</span> || !parte.<span class="hljs-property">tempoEspera</span> || !parte.<span class="hljs-property">tag</span>) {
+                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&quot;Parte da Musica com problema!&quot;</span>);
+            }
+            <span class="hljs-variable language_">this</span>.<span class="hljs-property">partes</span>.<span class="hljs-title function_">push</span>(parte);
+        } <span class="hljs-keyword">catch</span> (error) {
+            <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;Erro ao addParte: &quot;</span> + error.<span class="hljs-property">message</span>);
+        }
+    }
+
+    <span class="hljs-title function_">getLetraInteira</span>(<span class="hljs-params"></span>) {
+        <span class="hljs-keyword">let</span> letra = <span class="hljs-string">&quot;&quot;</span>;
+        <span class="hljs-variable language_">this</span>.<span class="hljs-property">partes</span>.<span class="hljs-title function_">forEach</span>(<span class="hljs-function">(<span class="hljs-params">parte</span>) =&gt;</span> {
+            letra += parte.<span class="hljs-property">letra</span>;
+        });
+        <span class="hljs-keyword">return</span> letra;
+    }
+}
+
+<span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = { <span class="hljs-title class_">Musica</span> };</code></pre><p>Observe a última linha de cada arquivo: <code>module.exports = { Musica }</code>. Voltaremos a falar sobre isso na seção final. Por ora, saiba que essa linha permite que outros arquivos usem a classe via <code>require()</code>.</p>
+<h3>3.2 O player: quem monta a música</h3>
+<p>No nosso projeto, já existe um arquivo <code>player.js</code> que funciona como o &quot;script principal&quot; — ele importa as classes, cria o objeto da música e adiciona todas as partes. Vamos aproveitar esse arquivo e adaptá-lo para também <strong>exportar</strong> o objeto <code>musica</code>, permitindo que o servidor o utilize.</p>
+<p><strong><code>player.js</code></strong> — monta a música e exporta para uso externo:</p>
+<pre><code class="hljs language-javascript"><span class="hljs-comment">// player.js — script principal: monta a música</span>
+<span class="hljs-keyword">const</span> { <span class="hljs-title class_">Musica</span> } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;./musica&#x27;</span>);
+<span class="hljs-keyword">const</span> { <span class="hljs-title class_">Parte</span> } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;./parte&#x27;</span>);
+
+<span class="hljs-keyword">const</span> musica = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Musica</span>(<span class="hljs-string">&#x27;My Hero&#x27;</span>, <span class="hljs-string">&#x27;Foo Fighters&#x27;</span>);
+
+musica.<span class="hljs-title function_">addParte</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Parte</span>(<span class="hljs-string">&#x27;Too alarmin now to talk about \n Take your pictures down and shake it out&#x27;</span>, <span class="hljs-number">11000</span>, <span class="hljs-string">&#x27;verso1&#x27;</span>));
+musica.<span class="hljs-title function_">addParte</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Parte</span>(<span class="hljs-string">&#x27;Truth or consequence, say it aloud \n Use that evidence, race it around&#x27;</span>, <span class="hljs-number">10000</span>, <span class="hljs-string">&#x27;verso2&#x27;</span>));
+musica.<span class="hljs-title function_">addParte</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Parte</span>(<span class="hljs-string">&#x27;There goes my hero&#x27;</span>, <span class="hljs-number">4000</span>, <span class="hljs-string">&#x27;refrão1&#x27;</span>));
+musica.<span class="hljs-title function_">addParte</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Parte</span>(<span class="hljs-string">&#x27;Watch him as he goes&#x27;</span>, <span class="hljs-number">4000</span>, <span class="hljs-string">&#x27;refrão2&#x27;</span>));
+musica.<span class="hljs-title function_">addParte</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Parte</span>(<span class="hljs-string">&quot;He&#x27;s ordinary&quot;</span>, <span class="hljs-number">5000</span>, <span class="hljs-string">&#x27;refrão3&#x27;</span>));
+musica.<span class="hljs-title function_">addParte</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Parte</span>(<span class="hljs-string">&quot;Don&#x27;t the best of them bleed it out&quot;</span>, <span class="hljs-number">5000</span>, <span class="hljs-string">&#x27;verso3&#x27;</span>));
+musica.<span class="hljs-title function_">addParte</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Parte</span>(<span class="hljs-string">&#x27;While the rest of them peter out?&#x27;</span>, <span class="hljs-number">5000</span>, <span class="hljs-string">&#x27;verso4&#x27;</span>));
+musica.<span class="hljs-title function_">addParte</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Parte</span>(<span class="hljs-string">&#x27;Kudos, my hero \nLeavin all the best&#x27;</span>, <span class="hljs-number">6000</span>, <span class="hljs-string">&#x27;refrão4&#x27;</span>));
+musica.<span class="hljs-title function_">addParte</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Parte</span>(<span class="hljs-string">&#x27;You know my hero \nThe one thats on&#x27;</span>, <span class="hljs-number">6000</span>, <span class="hljs-string">&#x27;refrão5&#x27;</span>));
+
+<span class="hljs-comment">// Exporta o objeto da música para que outros arquivos possam usá-lo</span>
+<span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = { musica };</code></pre><p>A linha <code>module.exports = { musica }</code> é a chave: ela torna o objeto acessível por qualquer arquivo que fizer <code>require(&#39;./player&#39;)</code>.</p>
+<h3>3.3 O arquivo principal: <code>app.js</code></h3>
+<p>Agora criamos o <code>app.js</code> — o ponto de entrada do servidor. Ele importa o <code>musica</code> do player e configura o Express:</p>
+<pre><code class="hljs language-javascript"><span class="hljs-comment">// app.js — ponto de entrada do servidor Express</span>
+<span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;express&#x27;</span>);
+<span class="hljs-keyword">const</span> { <span class="hljs-title class_">Parte</span> } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;./parte&#x27;</span>);
+<span class="hljs-keyword">const</span> { musica } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;./player&#x27;</span>);  <span class="hljs-comment">// importa a música montada pelo player</span>
+
+<span class="hljs-keyword">const</span> app = <span class="hljs-title function_">express</span>();
+<span class="hljs-keyword">const</span> <span class="hljs-variable constant_">PORT</span> = <span class="hljs-number">3000</span>;
+
+<span class="hljs-comment">// Middlewares para interpretar o corpo das requisições</span>
+app.<span class="hljs-title function_">use</span>(express.<span class="hljs-title function_">json</span>());                          <span class="hljs-comment">// corpo em JSON</span>
+app.<span class="hljs-title function_">use</span>(express.<span class="hljs-title function_">urlencoded</span>({ <span class="hljs-attr">extended</span>: <span class="hljs-literal">true</span> }));   <span class="hljs-comment">// corpo de formulários HTML</span></code></pre><p>O <code>app.js</code> não sabe como a música foi construída. Ele recebe <code>musica</code> pronto e se preocupa apenas com as rotas e o servidor HTTP. Cada arquivo cuida do que é seu.</p>
+<p>Os dados ficam <strong>em memória</strong>. Se o servidor for reiniciado, os dados voltam ao estado original. Em aulas futuras, vamos persistir dados em banco de dados.</p>
+<hr>
+<h2>4. Os métodos HTTP na prática</h2>
+<p>Agora vamos implementar cada verbo HTTP como uma rota do Express. Para cada um, a tabela mostra a correspondência com a metáfora do restaurante.</p>
+<h3>4.1 GET — Ler dados (&quot;Me traga o cardápio&quot;)</h3>
+<p>O método GET serve para <strong>consultar</strong> informações. Ele nunca altera dados no servidor.</p>
+<h4>Rota 1: Obter a música completa</h4>
+<pre><code class="hljs language-javascript"><span class="hljs-comment">// GET /api/musica — retorna a música completa em JSON</span>
+app.<span class="hljs-title function_">get</span>(<span class="hljs-string">&#x27;/api/musica&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =&gt;</span> {
+    res.<span class="hljs-title function_">json</span>({
+        <span class="hljs-attr">nome</span>: musica.<span class="hljs-property">nome</span>,
+        <span class="hljs-attr">artista</span>: musica.<span class="hljs-property">artista</span>,
+        <span class="hljs-attr">letraInteira</span>: musica.<span class="hljs-title function_">getLetraInteira</span>(),
+        <span class="hljs-attr">partes</span>: musica.<span class="hljs-property">partes</span>
+    });
+});</code></pre><p><strong>O que acontece aqui:</strong></p>
+<ol>
+<li>O cliente envia <code>GET http://localhost:3000/api/musica</code></li>
+<li>O Express identifica a rota e executa a função callback</li>
+<li><code>res.json(...)</code> serializa o objeto para JSON e envia como resposta com status 200</li>
+</ol>
+<p><strong>Teste no navegador:</strong> basta digitar <code>http://localhost:3000/api/musica</code> na barra de endereços — o navegador faz GET por padrão.</p>
+<h4>Rota 2: Obter uma parte específica (parâmetro de rota)</h4>
+<p>E se o cliente quiser apenas a parte de índice 2? Usamos <strong>parâmetros de rota</strong> (route params), indicados por <code>:nomeDaVariavel</code>:</p>
+<pre><code class="hljs language-javascript"><span class="hljs-comment">// GET /api/partes/:indice — parâmetro de rota (route param)</span>
+<span class="hljs-comment">// Exemplo: GET /api/partes/0  →  retorna a primeira parte</span>
+app.<span class="hljs-title function_">get</span>(<span class="hljs-string">&#x27;/api/partes/:indice&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =&gt;</span> {
+    <span class="hljs-keyword">const</span> i = <span class="hljs-title class_">Number</span>(req.<span class="hljs-property">params</span>.<span class="hljs-property">indice</span>);
+
+    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">isNaN</span>(i) || i &lt; <span class="hljs-number">0</span> || i &gt;= musica.<span class="hljs-property">partes</span>.<span class="hljs-property">length</span>) {
+        <span class="hljs-keyword">return</span> res.<span class="hljs-title function_">status</span>(<span class="hljs-number">404</span>).<span class="hljs-title function_">json</span>({ <span class="hljs-attr">erro</span>: <span class="hljs-string">`Parte <span class="hljs-subst">${req.params.indice}</span> não encontrada`</span> });
+    }
+
+    res.<span class="hljs-title function_">json</span>(musica.<span class="hljs-property">partes</span>[i]);
+});</code></pre><p><strong>Conceitos novos:</strong></p>
+<ul>
+<li><code>req.params.indice</code> — o Express extrai o valor da URL e coloca neste objeto. Se a URL for <code>/api/partes/3</code>, então <code>req.params.indice</code> vale <code>&quot;3&quot;</code> (String).</li>
+<li><code>Number(...)</code> — precisamos converter de String para número.</li>
+<li><code>res.status(404)</code> — encadeia o status code antes de enviar o JSON. Aqui usamos 404 porque a parte solicitada não existe (&quot;prato não encontrado no cardápio&quot;).</li>
+</ul>
+<h4>Rota 3: Filtrar partes por query string</h4>
+<p>Outra forma de passar dados no GET é pela <strong>query string</strong> — aqueles parâmetros depois do <code>?</code> na URL:</p>
+<pre><code class="hljs language-javascript"><span class="hljs-comment">// GET /api/partes?tag=verso1 — query string</span>
+app.<span class="hljs-title function_">get</span>(<span class="hljs-string">&#x27;/api/partes&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =&gt;</span> {
+    <span class="hljs-keyword">const</span> { tag } = req.<span class="hljs-property">query</span>;  <span class="hljs-comment">// extrai o parâmetro da query string</span>
+
+    <span class="hljs-keyword">if</span> (tag) {
+        <span class="hljs-keyword">const</span> filtradas = musica.<span class="hljs-property">partes</span>.<span class="hljs-title function_">filter</span>(<span class="hljs-function"><span class="hljs-params">p</span> =&gt;</span> p.<span class="hljs-property">tag</span> === tag);
+        <span class="hljs-keyword">return</span> res.<span class="hljs-title function_">json</span>(filtradas);
+    }
+
+    <span class="hljs-comment">// Sem filtro → retorna todas as partes</span>
+    res.<span class="hljs-title function_">json</span>(musica.<span class="hljs-property">partes</span>);
+});</code></pre><p><strong>Diferença entre route param e query string:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Mecanismo</th>
+<th>Sintaxe na URL</th>
+<th>Acesso no Express</th>
+<th>Quando usar</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Route param</td>
+<td><code>/api/partes/3</code></td>
+<td><code>req.params.indice</code></td>
+<td>Identificar um recurso específico</td>
+</tr>
+<tr>
+<td>Query string</td>
+<td><code>/api/partes?tag=verso1</code></td>
+<td><code>req.query.tag</code></td>
+<td>Filtrar, buscar, paginar</td>
+</tr>
+</tbody></table>
+<p>Na metáfora: o route param é como pedir &quot;o prato número 3&quot;. A query string é como dizer &quot;quero ver apenas os pratos vegetarianos do cardápio&quot;.</p>
+<hr>
+<h3>4.2 POST — Criar dados (&quot;Anote um pedido novo&quot;)</h3>
+<p>O método POST serve para <strong>criar</strong> algo novo no servidor. Os dados viajam no <strong>corpo</strong> (body) da requisição, não na URL.</p>
+<pre><code class="hljs language-javascript"><span class="hljs-comment">// POST /api/partes — recebe JSON no body</span>
+<span class="hljs-comment">// Body esperado: { &quot;letra&quot;: &quot;...&quot;, &quot;tempoEspera&quot;: 5000, &quot;tag&quot;: &quot;verso5&quot; }</span>
+app.<span class="hljs-title function_">post</span>(<span class="hljs-string">&#x27;/api/partes&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =&gt;</span> {
+    <span class="hljs-keyword">const</span> { letra, tempoEspera, tag } = req.<span class="hljs-property">body</span>;  <span class="hljs-comment">// dados do body JSON</span>
+
+    <span class="hljs-keyword">if</span> (!letra || !tempoEspera || !tag) {
+        <span class="hljs-keyword">return</span> res.<span class="hljs-title function_">status</span>(<span class="hljs-number">400</span>).<span class="hljs-title function_">json</span>({ <span class="hljs-attr">erro</span>: <span class="hljs-string">&#x27;Campos obrigatórios: letra, tempoEspera, tag&#x27;</span> });
+    }
+
+    <span class="hljs-keyword">const</span> novaParte = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Parte</span>(letra, tempoEspera, tag);
+    musica.<span class="hljs-title function_">addParte</span>(novaParte);
+
+    res.<span class="hljs-title function_">status</span>(<span class="hljs-number">201</span>).<span class="hljs-title function_">json</span>({
+        <span class="hljs-attr">mensagem</span>: <span class="hljs-string">&#x27;Parte adicionada&#x27;</span>,
+        <span class="hljs-attr">parte</span>: novaParte,
+        <span class="hljs-attr">totalPartes</span>: musica.<span class="hljs-property">partes</span>.<span class="hljs-property">length</span>
+    });
+});</code></pre><p><strong>O que acontece aqui:</strong></p>
+<ol>
+<li>O cliente envia um <code>POST</code> para <code>/api/partes</code> com um corpo JSON</li>
+<li>O middleware <code>express.json()</code> (que configuramos lá no início) converte o JSON em objeto e coloca em <code>req.body</code></li>
+<li>Validamos os campos — se faltar algo, devolvemos <strong>400 Bad Request</strong> (&quot;bilhete com letra ilegível&quot;)</li>
+<li>Se estiver tudo certo, criamos a parte e devolvemos <strong>201 Created</strong> (&quot;pedido novo registrado&quot;)</li>
+</ol>
+<p><strong>Teste:</strong> essa rota não funciona pelo navegador (que só faz GET pela barra de endereços). Veja a seção 6 sobre como testar com o <strong>REST Client</strong> do VS Code.</p>
+<hr>
+<h3>4.3 PUT — Atualizar dados (&quot;Substitua esse prato inteiro&quot;)</h3>
+<p>O método PUT serve para <strong>substituir</strong> um recurso existente por completo. Você envia todos os campos novamente, mesmo os que não mudaram.</p>
+<pre><code class="hljs language-javascript"><span class="hljs-comment">// PUT /api/partes/:indice — atualiza uma parte existente por completo</span>
+<span class="hljs-comment">// Body esperado: { &quot;letra&quot;: &quot;...&quot;, &quot;tempoEspera&quot;: 5000, &quot;tag&quot;: &quot;verso1_v2&quot; }</span>
+app.<span class="hljs-title function_">put</span>(<span class="hljs-string">&#x27;/api/partes/:indice&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =&gt;</span> {
+    <span class="hljs-keyword">const</span> i = <span class="hljs-title class_">Number</span>(req.<span class="hljs-property">params</span>.<span class="hljs-property">indice</span>);
+
+    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">isNaN</span>(i) || i &lt; <span class="hljs-number">0</span> || i &gt;= musica.<span class="hljs-property">partes</span>.<span class="hljs-property">length</span>) {
+        <span class="hljs-keyword">return</span> res.<span class="hljs-title function_">status</span>(<span class="hljs-number">404</span>).<span class="hljs-title function_">json</span>({ <span class="hljs-attr">erro</span>: <span class="hljs-string">`Parte <span class="hljs-subst">${i}</span> não encontrada`</span> });
+    }
+
+    <span class="hljs-keyword">const</span> { letra, tempoEspera, tag } = req.<span class="hljs-property">body</span>;
+
+    <span class="hljs-keyword">if</span> (!letra || !tempoEspera || !tag) {
+        <span class="hljs-keyword">return</span> res.<span class="hljs-title function_">status</span>(<span class="hljs-number">400</span>).<span class="hljs-title function_">json</span>({ <span class="hljs-attr">erro</span>: <span class="hljs-string">&#x27;Campos obrigatórios: letra, tempoEspera, tag&#x27;</span> });
+    }
+
+    <span class="hljs-comment">// Substitui a parte na posição indicada</span>
+    musica.<span class="hljs-property">partes</span>[i] = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Parte</span>(letra, tempoEspera, tag);
+
+    res.<span class="hljs-title function_">json</span>({
+        <span class="hljs-attr">mensagem</span>: <span class="hljs-string">`Parte <span class="hljs-subst">${i}</span> atualizada`</span>,
+        <span class="hljs-attr">parte</span>: musica.<span class="hljs-property">partes</span>[i]
+    });
+});</code></pre><p><strong>Fluxo:</strong></p>
+<ol>
+<li>O cliente envia <code>PUT /api/partes/2</code> com o corpo contendo os dados novos</li>
+<li>Validamos se o índice existe (404 se não) e se os campos estão preenchidos (400 se não)</li>
+<li>Substituímos o objeto no array</li>
+<li>Devolvemos 200 com a parte atualizada</li>
+</ol>
+<p>Na metáfora do restaurante: o cliente derrubou o prato 2 no chão. Ele pede ao garçom: &quot;substitua este prato inteiro por um novo, exatamente como eu estou descrevendo aqui.&quot;</p>
+<p><strong>Teste:</strong> use o REST Client com um arquivo <code>.http</code> (veja a seção 6).</p>
+<hr>
+<h3>4.4 DELETE — Remover dados (&quot;Cancele aquele pedido&quot;)</h3>
+<p>O método DELETE remove um recurso do servidor.</p>
+<pre><code class="hljs language-javascript"><span class="hljs-comment">// DELETE /api/partes/:indice — remove uma parte da música</span>
+app.<span class="hljs-title function_">delete</span>(<span class="hljs-string">&#x27;/api/partes/:indice&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =&gt;</span> {
+    <span class="hljs-keyword">const</span> i = <span class="hljs-title class_">Number</span>(req.<span class="hljs-property">params</span>.<span class="hljs-property">indice</span>);
+
+    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">isNaN</span>(i) || i &lt; <span class="hljs-number">0</span> || i &gt;= musica.<span class="hljs-property">partes</span>.<span class="hljs-property">length</span>) {
+        <span class="hljs-keyword">return</span> res.<span class="hljs-title function_">status</span>(<span class="hljs-number">404</span>).<span class="hljs-title function_">json</span>({ <span class="hljs-attr">erro</span>: <span class="hljs-string">`Parte <span class="hljs-subst">${i}</span> não encontrada`</span> });
+    }
+
+    <span class="hljs-keyword">const</span> removida = musica.<span class="hljs-property">partes</span>.<span class="hljs-title function_">splice</span>(i, <span class="hljs-number">1</span>)[<span class="hljs-number">0</span>];  <span class="hljs-comment">// remove e captura</span>
+
+    res.<span class="hljs-title function_">json</span>({
+        <span class="hljs-attr">mensagem</span>: <span class="hljs-string">`Parte <span class="hljs-subst">${i}</span> removida`</span>,
+        <span class="hljs-attr">parteRemovida</span>: removida,
+        <span class="hljs-attr">totalPartes</span>: musica.<span class="hljs-property">partes</span>.<span class="hljs-property">length</span>
+    });
+});</code></pre><p><strong>Conceito novo: <code>splice(i, 1)</code></strong>
+O método <code>splice</code> do Array remove elementos pela posição. <code>splice(i, 1)</code> diz: &quot;a partir da posição <code>i</code>, remova 1 elemento&quot;. Ele retorna um array com os elementos removidos — por isso o <code>[0]</code> no final.</p>
+<p>Na metáfora: &quot;Garçom, cancele o pedido número 4. Pode jogar a ficha fora.&quot;</p>
+<p><strong>Teste:</strong> use o REST Client com <code>DELETE http://localhost:3000/api/partes/0</code> (veja a seção 6).</p>
+<p>Após essa chamada, a parte que era índice 1 passa a ser índice 0. Todos os índices subsequentes &quot;descem&quot; uma posição.</p>
+<hr>
+<h2>5. Resumo: CRUD completo</h2>
+<p>Agora temos todas as operações <strong>CRUD</strong> (Create, Read, Update, Delete) mapeadas:</p>
+<table>
+<thead>
+<tr>
+<th>Operação</th>
+<th>Verbo HTTP</th>
+<th>Rota</th>
+<th>Status de sucesso</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>C</strong>reate (criar)</td>
+<td><code>POST</code></td>
+<td><code>/api/partes</code></td>
+<td>201 Created</td>
+</tr>
+<tr>
+<td><strong>R</strong>ead (ler)</td>
+<td><code>GET</code></td>
+<td><code>/api/musica</code>, <code>/api/partes</code>, <code>/api/partes/:id</code></td>
+<td>200 OK</td>
+</tr>
+<tr>
+<td><strong>U</strong>pdate (atualizar)</td>
+<td><code>PUT</code></td>
+<td><code>/api/partes/:id</code></td>
+<td>200 OK</td>
+</tr>
+<tr>
+<td><strong>D</strong>elete (remover)</td>
+<td><code>DELETE</code></td>
+<td><code>/api/partes/:id</code></td>
+<td>200 OK</td>
+</tr>
+</tbody></table>
+<p>Esse padrão é a base de praticamente toda API REST que você vai encontrar na Web — de redes sociais a serviços bancários.</p>
+<hr>
+<h2>6. Rodando e testando a API</h2>
+<h3>6.1 Iniciar o servidor</h3>
+<p>Abra o terminal integrado do VS Code (<code>Ctrl+J</code>) e execute:</p>
+<pre><code class="hljs language-bash">node app.js</code></pre><p>O terminal exibirá: <code>Servidor Express rodando em http://localhost:3000</code></p>
+<p>Deixe esse terminal rodando. Para parar o servidor, pressione <code>Ctrl+C</code>.</p>
+<h3>6.2 O problema do navegador</h3>
+<p>O navegador serve bem para requisições GET — basta digitar a URL na barra de endereços. Mas ele não oferece uma forma nativa de enviar POST, PUT ou DELETE com corpo JSON. Para testar todos os verbos HTTP, precisamos de uma ferramenta dedicada.</p>
+<h3>6.3 REST Client: testando APIs direto no VS Code</h3>
+<p>A extensão <strong>REST Client</strong> permite enviar requisições HTTP diretamente de arquivos <code>.http</code> dentro do VS Code. Sem interface gráfica extra, sem trocar de janela. Você escreve a requisição como texto, clica em &quot;Send Request&quot; e vê a resposta ao lado.</p>
+<h4>Instalação</h4>
+<ol>
+<li>Abra o VS Code</li>
+<li>Vá em <strong>Extensões</strong> (ícone de quadradinhos na barra lateral, ou <code>Ctrl+Shift+X</code>)</li>
+<li>Pesquise por <strong>REST Client</strong></li>
+<li>Instale a extensão de autor <strong>Huachao Mao</strong> (identificador: <code>humao.rest-client</code>)</li>
+</ol>
+<h4>Como funciona</h4>
+<ol>
+<li>Crie um arquivo com extensão <code>.http</code> na pasta do projeto (ex: <code>testes.http</code>)</li>
+<li>Escreva as requisições seguindo o formato abaixo</li>
+<li>Acima de cada requisição, aparecerá o link clicável <strong>&quot;Send Request&quot;</strong></li>
+<li>Clique nele — a resposta aparece em uma nova aba ao lado</li>
+</ol>
+<h4>Formato de uma requisição</h4>
+<p>Cada requisição segue esta estrutura:</p>
+<pre><code class="hljs language-plaintext">MÉTODO  URL
+Cabeçalho: Valor
+
+Corpo (para POST e PUT)</code></pre><p>Para separar uma requisição da outra no mesmo arquivo, use <code>###</code> (três cerquilhas).</p>
+<h4>Arquivo de testes completo</h4>
+<p>Crie o arquivo <code>testes.http</code> na raiz do projeto do karaokê com o conteúdo abaixo. Cada bloco é uma requisição independente.</p>
+<pre><code class="hljs language-http">### ============================================
+### TESTES DA API DO KARAOKÊ
+### ============================================
+
+### --- GET: Música completa ---
+GET http://localhost:3000/api/musica
+
+### --- GET: Todas as partes ---
+GET http://localhost:3000/api/partes
+
+### --- GET: Parte por índice (route param) ---
+GET http://localhost:3000/api/partes/0
+
+### --- GET: Filtrar por tag (query string) ---
+GET http://localhost:3000/api/partes?tag=verso1
+
+### --- GET: Parte inexistente (espera 404) ---
+GET http://localhost:3000/api/partes/999
+
+### --- POST: Adicionar nova parte ---
+POST http://localhost:3000/api/partes
+<span class="hljs-attribute">Content-Type</span><span class="hljs-punctuation">: </span>application/json
+
+{
+    &quot;letra&quot;: &quot;There goes my hero\nHe&#x27;s ordinary&quot;,
+    &quot;tempoEspera&quot;: 8000,
+    &quot;tag&quot;: &quot;refrão6&quot;
+}
+
+### --- POST: Tentativa sem campos obrigatórios (espera 400) ---
+POST http://localhost:3000/api/partes
+<span class="hljs-attribute">Content-Type</span><span class="hljs-punctuation">: </span>application/json
+
+{
+    &quot;letra&quot;: &quot;Faltando campos&quot;
+}
+
+### --- PUT: Atualizar a parte de índice 2 ---
+PUT http://localhost:3000/api/partes/2
+<span class="hljs-attribute">Content-Type</span><span class="hljs-punctuation">: </span>application/json
+
+{
+    &quot;letra&quot;: &quot;There goes my hero (versão alternativa)&quot;,
+    &quot;tempoEspera&quot;: 6000,
+    &quot;tag&quot;: &quot;refrão1_alt&quot;
+}
+
+### --- DELETE: Remover a parte de índice 0 ---
+DELETE http://localhost:3000/api/partes/0
+
+### --- GET: Verificar estado após as alterações ---
+GET http://localhost:3000/api/partes</code></pre><h4>Lendo a resposta</h4>
+<p>Ao clicar em &quot;Send Request&quot;, o VS Code abre uma aba com a resposta completa. A primeira linha mostra o protocolo e o <strong>status code</strong>:</p>
+<pre><code class="hljs language-plaintext">HTTP/1.1 200 OK</code></pre><p>Em seguida, os cabeçalhos da resposta e, ao final, o corpo JSON. Compare o status recebido com o que você esperava:</p>
+<table>
+<thead>
+<tr>
+<th>Requisição</th>
+<th>Status esperado</th>
+<th>Significa</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>GET de recurso existente</td>
+<td><code>200 OK</code></td>
+<td>Dados retornados</td>
+</tr>
+<tr>
+<td>POST com dados válidos</td>
+<td><code>201 Created</code></td>
+<td>Recurso criado</td>
+</tr>
+<tr>
+<td>POST/PUT com campos faltando</td>
+<td><code>400 Bad Request</code></td>
+<td>Dados inválidos</td>
+</tr>
+<tr>
+<td>GET/PUT/DELETE de índice inexistente</td>
+<td><code>404 Not Found</code></td>
+<td>Recurso não existe</td>
+</tr>
+</tbody></table>
+<h4>Dicas de uso</h4>
+<ul>
+<li><strong>Variáveis:</strong> defina variáveis no topo do arquivo para evitar repetição:<pre><code class="hljs language-http">@baseUrl = http://localhost:3000
+
+### GET: Música completa
+GET {{baseUrl}}/api/musica</code></pre></li>
+<li><strong>Ordem importa:</strong> execute as requisições de cima para baixo para que os testes façam sentido (ex: POST antes de DELETE)</li>
+<li><strong>Versionamento:</strong> o arquivo <code>.http</code> pode ser commitado no Git junto com o projeto, servindo como documentação viva da API</li>
+</ul>
+<hr>
+<h2>7. A rota HTML — servindo a página do Karaokê</h2>
+<p>Além de responder com JSON (API), o mesmo servidor pode servir páginas HTML. O código abaixo cria a interface visual do karaokê na rota raiz <code>/</code>:</p>
+<pre><code class="hljs language-javascript"><span class="hljs-comment">// Rota HTML — página do karaokê</span>
+app.<span class="hljs-title function_">get</span>(<span class="hljs-string">&#x27;/&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =&gt;</span> {
+    <span class="hljs-keyword">const</span> partesJSON = <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>(musica.<span class="hljs-property">partes</span>);
+
+    res.<span class="hljs-title function_">send</span>(<span class="hljs-string">`&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;pt-BR&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;<span class="hljs-subst">${musica.nome}</span> — <span class="hljs-subst">${musica.artista}</span>&lt;/title&gt;
+    &lt;!-- ... estilos CSS ... --&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;<span class="hljs-subst">${musica.nome}</span>&lt;/h1&gt;
+    &lt;h2&gt;<span class="hljs-subst">${musica.artista}</span>&lt;/h2&gt;
+    &lt;div id=&quot;palco&quot;&gt;&lt;!-- letra aparece aqui --&gt;&lt;/div&gt;
+    &lt;button id=&quot;btnPlay&quot;&gt;▶ Play&lt;/button&gt;
+
+    &lt;script&gt;
+        // Os dados da API são injetados diretamente no HTML
+        const partes = <span class="hljs-subst">${partesJSON}</span>;
+        // ... lógica de reprodução ...
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;`</span>);
+});</code></pre><p>Aqui acontece algo interessante: o servidor <strong>injeta</strong> os dados diretamente no HTML usando template literals. A variável <code>${partesJSON}</code> é substituída pelo JSON das partes antes de o HTML chegar ao navegador. O cliente recebe uma página pronta, com os dados embutidos.</p>
+<p>Acesse <code>http://localhost:3000/</code> no navegador para ver o karaokê funcionando.</p>
+<hr>
+<h2>8. Fechamento do servidor</h2>
+<p>A última linha do arquivo coloca tudo para funcionar:</p>
+<pre><code class="hljs language-javascript">app.<span class="hljs-title function_">listen</span>(<span class="hljs-variable constant_">PORT</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`Servidor Express rodando em http://localhost:<span class="hljs-subst">${PORT}</span>`</span>);
+});</code></pre><p>O <code>app.listen()</code> abre a porta e mantém o programa rodando em loop infinito, aguardando conexões. Para parar o servidor, pressione <code>Ctrl+C</code> no terminal.</p>
+<hr>
+<h2>9. Visão geral da estrutura atual</h2>
+<p>Até aqui, as rotas ficam todas no <code>app.js</code>, enquanto os dados vivem no <code>player.js</code>. A estrutura do projeto:</p>
+<pre><code class="hljs language-plaintext">karaoke/
+├── musica.js       ← Classe Musica
+├── parte.js        ← Classe Parte
+├── player.js       ← Monta a música e exporta musica
+├── app.js        ← Servidor Express (rotas + HTML)
+├── package.json    ← Manifesto do projeto
+└── node_modules/   ← Dependências instaladas (express)</code></pre><p>Já separamos os dados (player) do servidor (index). Mas o <code>app.js</code> ainda acumula todas as rotas da API e a renderização do HTML num arquivo só. Conforme a aplicação cresce, isso se torna um problema.</p>
+<p>É aqui que entra um tema central da programação profissional.</p>
+<hr>
+<h2>10. Por que modularizar? Separando rotas em arquivos próprios</h2>
+<h3>O problema do arquivo acumulador</h3>
+<p>Olhe para o nosso <code>app.js</code>. Ele ainda concentra:</p>
+<ul>
+<li>Configuração do Express e middlewares</li>
+<li>Todas as rotas de API (GET, POST, PUT, DELETE)</li>
+<li>A geração da página HTML completa</li>
+<li>A inicialização do servidor</li>
+</ul>
+<p>Funciona para um projeto pequeno. Mas imagine que a aplicação cresce — você precisa adicionar autenticação, gerenciar playlists, ter rotas para usuários, conectar com banco de dados. Se tudo ficar no mesmo arquivo, em poucas semanas você terá um <code>app.js</code> de 2000 linhas onde ninguém consegue encontrar nada.</p>
+<p>Esse cenário tem nome: <strong>código espaguete</strong>. Tudo emaranhado, difícil de ler, difícil de manter, difícil de trabalhar em equipe.</p>
+<h3>A solução: módulos</h3>
+<p>O Node.js oferece um sistema de módulos que permite dividir o código em arquivos independentes, cada um com uma responsabilidade clara. Já fizemos isso: <code>Musica</code> e <code>Parte</code> vivem em seus próprios arquivos, e <code>player.js</code> monta os dados e os exporta. O <code>app.js</code> importa tudo via <code>require()</code>.</p>
+<p>O mecanismo funciona com duas peças:</p>
+<table>
+<thead>
+<tr>
+<th>Peça</th>
+<th>Arquivo que<strong>exporta</strong></th>
+<th>Arquivo que<strong>importa</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Função</td>
+<td><code>module.exports</code></td>
+<td><code>require()</code></td>
+</tr>
+</tbody></table>
+<h4><code>module.exports</code> — o que o arquivo expõe ao mundo</h4>
+<p>No final de <code>musica.js</code>, temos:</p>
+<pre><code class="hljs language-javascript"><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = { <span class="hljs-title class_">Musica</span> };</code></pre><p>Essa linha diz: &quot;quem fizer <code>require(&#39;./musica&#39;)</code> vai receber um objeto contendo a classe <code>Musica</code>.&quot;</p>
+<p>Você pode exportar qualquer coisa: classes, funções, objetos, constantes.</p>
+<pre><code class="hljs language-javascript"><span class="hljs-comment">// Exportar uma função</span>
+<span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = { calcularMedia };
+
+<span class="hljs-comment">// Exportar múltiplas coisas</span>
+<span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = { <span class="hljs-title class_">Musica</span>, criarPlaylist, <span class="hljs-variable constant_">TEMPO_PADRAO</span> };</code></pre><h4><code>require()</code> — buscar o que outro arquivo exportou</h4>
+<p>No <code>app.js</code>, fazemos:</p>
+<pre><code class="hljs language-javascript"><span class="hljs-keyword">const</span> { <span class="hljs-title class_">Parte</span> } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;./parte&#x27;</span>);
+<span class="hljs-keyword">const</span> { musica } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;./player&#x27;</span>);</code></pre><p>O <code>require(&#39;./player&#39;)</code> executa o arquivo <code>player.js</code> e retorna o que foi atribuído a <code>module.exports</code>. A desestruturação <code>{ musica }</code> extrai diretamente o objeto da música que o player montou e exportou.</p>
+<h3>Na prática: separando as rotas da API</h3>
+<p>Em um projeto organizado, criaríamos um arquivo dedicado às rotas. Veja como ficaria a separação:</p>
+<p><strong><code>routes/partes.js</code></strong> — apenas as rotas da API:</p>
+<pre><code class="hljs language-javascript"><span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;express&#x27;</span>);
+<span class="hljs-keyword">const</span> router = express.<span class="hljs-title class_">Router</span>();  <span class="hljs-comment">// mini-aplicação de rotas</span>
+<span class="hljs-keyword">const</span> { <span class="hljs-title class_">Parte</span> } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;../parte&#x27;</span>);
+<span class="hljs-keyword">const</span> { musica } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;../player&#x27;</span>); <span class="hljs-comment">// importa os dados diretamente</span>
+
+
+    router.<span class="hljs-title function_">get</span>(<span class="hljs-string">&#x27;/&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =&gt;</span> {
+        <span class="hljs-keyword">const</span> { tag } = req.<span class="hljs-property">query</span>;
+        <span class="hljs-keyword">if</span> (tag) {
+            <span class="hljs-keyword">return</span> res.<span class="hljs-title function_">json</span>(musica.<span class="hljs-property">partes</span>.<span class="hljs-title function_">filter</span>(<span class="hljs-function"><span class="hljs-params">p</span> =&gt;</span> p.<span class="hljs-property">tag</span> === tag));
+        }
+        res.<span class="hljs-title function_">json</span>(musica.<span class="hljs-property">partes</span>);
+    });
+
+    router.<span class="hljs-title function_">get</span>(<span class="hljs-string">&#x27;/:indice&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =&gt;</span> {
+        <span class="hljs-keyword">const</span> i = <span class="hljs-title class_">Number</span>(req.<span class="hljs-property">params</span>.<span class="hljs-property">indice</span>);
+        <span class="hljs-keyword">if</span> (<span class="hljs-built_in">isNaN</span>(i) || i &lt; <span class="hljs-number">0</span> || i &gt;= musica.<span class="hljs-property">partes</span>.<span class="hljs-property">length</span>) {
+            <span class="hljs-keyword">return</span> res.<span class="hljs-title function_">status</span>(<span class="hljs-number">404</span>).<span class="hljs-title function_">json</span>({ <span class="hljs-attr">erro</span>: <span class="hljs-string">`Parte <span class="hljs-subst">${i}</span> não encontrada`</span> });
+        }
+        res.<span class="hljs-title function_">json</span>(musica.<span class="hljs-property">partes</span>[i]);
+    });
+
+    router.<span class="hljs-title function_">post</span>(<span class="hljs-string">&#x27;/&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =&gt;</span> {
+        <span class="hljs-keyword">const</span> { letra, tempoEspera, tag } = req.<span class="hljs-property">body</span>;
+        <span class="hljs-keyword">if</span> (!letra || !tempoEspera || !tag) {
+            <span class="hljs-keyword">return</span> res.<span class="hljs-title function_">status</span>(<span class="hljs-number">400</span>).<span class="hljs-title function_">json</span>({ <span class="hljs-attr">erro</span>: <span class="hljs-string">&#x27;Campos obrigatórios: letra, tempoEspera, tag&#x27;</span> });
+        }
+        <span class="hljs-keyword">const</span> novaParte = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Parte</span>(letra, tempoEspera, tag);
+        musica.<span class="hljs-title function_">addParte</span>(novaParte);
+        res.<span class="hljs-title function_">status</span>(<span class="hljs-number">201</span>).<span class="hljs-title function_">json</span>({ <span class="hljs-attr">mensagem</span>: <span class="hljs-string">&#x27;Parte adicionada&#x27;</span>, <span class="hljs-attr">parte</span>: novaParte });
+    });
+
+    router.<span class="hljs-title function_">put</span>(<span class="hljs-string">&#x27;/:indice&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =&gt;</span> {
+        <span class="hljs-keyword">const</span> i = <span class="hljs-title class_">Number</span>(req.<span class="hljs-property">params</span>.<span class="hljs-property">indice</span>);
+        <span class="hljs-keyword">if</span> (<span class="hljs-built_in">isNaN</span>(i) || i &lt; <span class="hljs-number">0</span> || i &gt;= musica.<span class="hljs-property">partes</span>.<span class="hljs-property">length</span>) {
+            <span class="hljs-keyword">return</span> res.<span class="hljs-title function_">status</span>(<span class="hljs-number">404</span>).<span class="hljs-title function_">json</span>({ <span class="hljs-attr">erro</span>: <span class="hljs-string">`Parte <span class="hljs-subst">${i}</span> não encontrada`</span> });
+        }
+        <span class="hljs-keyword">const</span> { letra, tempoEspera, tag } = req.<span class="hljs-property">body</span>;
+        <span class="hljs-keyword">if</span> (!letra || !tempoEspera || !tag) {
+            <span class="hljs-keyword">return</span> res.<span class="hljs-title function_">status</span>(<span class="hljs-number">400</span>).<span class="hljs-title function_">json</span>({ <span class="hljs-attr">erro</span>: <span class="hljs-string">&#x27;Campos obrigatórios: letra, tempoEspera, tag&#x27;</span> });
+        }
+        musica.<span class="hljs-property">partes</span>[i] = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Parte</span>(letra, tempoEspera, tag);
+        res.<span class="hljs-title function_">json</span>({ <span class="hljs-attr">mensagem</span>: <span class="hljs-string">`Parte <span class="hljs-subst">${i}</span> atualizada`</span>, <span class="hljs-attr">parte</span>: musica.<span class="hljs-property">partes</span>[i] });
+    });
+
+    router.<span class="hljs-title function_">delete</span>(<span class="hljs-string">&#x27;/:indice&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =&gt;</span> {
+        <span class="hljs-keyword">const</span> i = <span class="hljs-title class_">Number</span>(req.<span class="hljs-property">params</span>.<span class="hljs-property">indice</span>);
+        <span class="hljs-keyword">if</span> (<span class="hljs-built_in">isNaN</span>(i) || i &lt; <span class="hljs-number">0</span> || i &gt;= musica.<span class="hljs-property">partes</span>.<span class="hljs-property">length</span>) {
+            <span class="hljs-keyword">return</span> res.<span class="hljs-title function_">status</span>(<span class="hljs-number">404</span>).<span class="hljs-title function_">json</span>({ <span class="hljs-attr">erro</span>: <span class="hljs-string">`Parte <span class="hljs-subst">${i}</span> não encontrada`</span> });
+        }
+        <span class="hljs-keyword">const</span> removida = musica.<span class="hljs-property">partes</span>.<span class="hljs-title function_">splice</span>(i, <span class="hljs-number">1</span>)[<span class="hljs-number">0</span>];
+        res.<span class="hljs-title function_">json</span>({ <span class="hljs-attr">mensagem</span>: <span class="hljs-string">`Parte <span class="hljs-subst">${i}</span> removida`</span>, <span class="hljs-attr">parteRemovida</span>: removida });
+    });
+
+<span class="hljs-comment">// Exporta o router configurado</span>
+<span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = router;</code></pre><p><strong><code>app.js</code></strong> — agora enxuto, apenas configuração e orquestração:</p>
+<pre><code class="hljs language-javascript"><span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;express&#x27;</span>);
+<span class="hljs-keyword">const</span> rotasPartes = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;./routes/partes&#x27;</span>);
+
+<span class="hljs-keyword">const</span> app = <span class="hljs-title function_">express</span>();
+<span class="hljs-keyword">const</span> <span class="hljs-variable constant_">PORT</span> = <span class="hljs-number">3000</span>;
+
+app.<span class="hljs-title function_">use</span>(express.<span class="hljs-title function_">json</span>());
+app.<span class="hljs-title function_">use</span>(express.<span class="hljs-title function_">urlencoded</span>({ <span class="hljs-attr">extended</span>: <span class="hljs-literal">true</span> }));
+
+<span class="hljs-comment">// Rotas da API delegadas ao módulo de rotas</span>
+app.<span class="hljs-title function_">use</span>(<span class="hljs-string">&#x27;/api/partes&#x27;</span>, rotasPartes);
+
+<span class="hljs-comment">// Rota HTML do karaokê</span>
+app.<span class="hljs-title function_">get</span>(<span class="hljs-string">&#x27;/&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =&gt;</span> {
+    <span class="hljs-comment">// ... HTML do karaokê ...</span>
+});
+
+app.<span class="hljs-title function_">listen</span>(<span class="hljs-variable constant_">PORT</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`Servidor rodando em http://localhost:<span class="hljs-subst">${PORT}</span>`</span>);
+});</code></pre><p>Observe a linha central da modularização:</p>
+<pre><code class="hljs language-javascript">app.<span class="hljs-title function_">use</span>(<span class="hljs-string">&#x27;/api/partes&#x27;</span>, rotasPartes);</code></pre><p>O <code>app.use()</code> monta o router no prefixo <code>/api/partes</code>. Todas as rotas definidas dentro do router (no arquivo <code>routes/partes.js</code>) passam a responder nesse caminho. O router define <code>router.get(&#39;/&#39;)</code> — e o Express combina com o prefixo, resultando em <code>GET /api/partes</code>.</p>
+<h3>Estrutura modularizada</h3>
+<pre><code class="hljs language-plaintext">karaoke/
+├── musica.js           ← Classe Musica
+├── parte.js            ← Classe Parte
+├── player.js           ← Monta a música e exporta musica
+├── app.js            ← Configuração Express + inicialização
+├── routes/
+│   └── partes.js       ← Rotas da API separadas
+├── package.json
+└── node_modules/</code></pre><p>Cada arquivo tem uma responsabilidade única. Se precisar adicionar rotas de usuários, cria-se <code>routes/usuarios.js</code>. Se precisar de rotas de playlists, <code>routes/playlists.js</code>. O <code>app.js</code> apenas monta e orquestra.</p>
+<h3>Benefícios da modularização</h3>
+<table>
+<thead>
+<tr>
+<th>Sem modularização</th>
+<th>Com modularização</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Um arquivo gigante</td>
+<td>Arquivos pequenos e focados</td>
+</tr>
+<tr>
+<td>Difícil de encontrar uma rota</td>
+<td>Cada arquivo é um &quot;mapa&quot; claro</td>
+</tr>
+<tr>
+<td>Conflitos em trabalho em equipe</td>
+<td>Cada pessoa edita um arquivo diferente</td>
+</tr>
+<tr>
+<td>Teste manual do sistema inteiro</td>
+<td>Possibilidade de testar módulos isolados</td>
+</tr>
+<tr>
+<td>Erros se propagam por todo o código</td>
+<td>Erros ficam contidos no módulo</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>11. Referência rápida</h2>
+<h3>Objeto <code>req</code> (Request) — o que o cliente enviou</h3>
+<table>
+<thead>
+<tr>
+<th>Propriedade</th>
+<th>Descrição</th>
+<th>Exemplo</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>req.params</code></td>
+<td>Parâmetros da URL (<code>:id</code>)</td>
+<td><code>req.params.indice</code></td>
+</tr>
+<tr>
+<td><code>req.query</code></td>
+<td>Query string (<code>?chave=valor</code>)</td>
+<td><code>req.query.tag</code></td>
+</tr>
+<tr>
+<td><code>req.body</code></td>
+<td>Corpo da requisição (POST, PUT)</td>
+<td><code>req.body.letra</code></td>
+</tr>
+<tr>
+<td><code>req.method</code></td>
+<td>Verbo HTTP usado</td>
+<td><code>&quot;GET&quot;</code>, <code>&quot;POST&quot;</code></td>
+</tr>
+</tbody></table>
+<h3>Objeto <code>res</code> (Response) — o que o servidor devolve</h3>
+<table>
+<thead>
+<tr>
+<th>Método</th>
+<th>Descrição</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>res.send(texto)</code></td>
+<td>Envia texto ou HTML</td>
+</tr>
+<tr>
+<td><code>res.json(objeto)</code></td>
+<td>Envia JSON (converte automaticamente)</td>
+</tr>
+<tr>
+<td><code>res.status(codigo)</code></td>
+<td>Define o status code (pode encadear)</td>
+</tr>
+<tr>
+<td><code>res.status(201).json({...})</code></td>
+<td>Combina status + JSON</td>
+</tr>
+</tbody></table>
+<h3>Sistema de módulos do Node.js</h3>
+<table>
+<thead>
+<tr>
+<th>Ação</th>
+<th>Código</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Exportar</td>
+<td><code>module.exports = { MinhaClasse, minhaFuncao }</code></td>
+</tr>
+<tr>
+<td>Importar</td>
+<td><code>const { MinhaClasse } = require(&#39;./arquivo&#39;)</code></td>
+</tr>
+<tr>
+<td>Router do Express</td>
+<td><code>const router = express.Router()</code></td>
+</tr>
+<tr>
+<td>Montar router</td>
+<td><code>app.use(&#39;/prefixo&#39;, router)</code></td>
+</tr>
+</tbody></table>
+<hr>
+<h2>Referências</h2>
+<ul>
+<li><a href="https://expressjs.com/pt-br/starter/hello-world.html">Documentação Oficial do Express — Hello World</a></li>
+<li><a href="https://expressjs.com/pt-br/guide/routing.html">Guia de Roteamento do Express</a></li>
+<li><a href="https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Reference/Status">HTTP Status Codes (MDN)</a></li>
+<li>Material: Metáfora do Restaurante</li>
+<li>Material: Configuração de Servidor Web</li>
+</ul>
+
+    </main>
+    <footer>
+      <span>IFSul - Campus Passo Fundo · Programação III</span>
+    </footer>
+  </div>
+</body>
+</html>

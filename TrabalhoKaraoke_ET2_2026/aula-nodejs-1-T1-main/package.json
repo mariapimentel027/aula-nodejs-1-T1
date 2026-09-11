@@ -1,0 +1,22 @@
+{
+  "name": "aula-nodejs-1-sexta",
+  "version": "1.0.0",
+  "description": "Projeto para aprender Node.js",
+  "license": "ISC",
+  "author": "Elder Bernardi",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js",
+    "teste": "echo SCRIPT de teste! ",
+    "karaoke": "node ./karaoke/player",
+    "dev": "nodemon app"
+    
+
+  },
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "express": "^5.2.1"
+  }
+}
