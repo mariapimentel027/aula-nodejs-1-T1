@@ -12,11 +12,13 @@
     "teste": "echo SCRIPT de teste! ",
     "karaoke": "node ./karaoke/player",
     "dev": "nodemon app"
-    
-
   },
   "dependencies": {
     "chalk": "^4.1.2",
     "express": "^5.2.1"
+  },
+  "engines": {
+    "node": ">=20.0.0"
   }
 }
+
