@@ -126,5 +126,5 @@ app.use((err, req, res, next) => {
 // Inicialização do Servidor
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, ()=>{
-  console.log(`Servidor escutando na porta http://localhost:${PORT}`);
+  console.log(`Servidor escutando na PORTA http://localhost:${PORT}`);
 });
