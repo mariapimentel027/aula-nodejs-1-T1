@@ -17,8 +17,8 @@ app.use(express.static('public'));
 // ==========================================
 
 // 1. GET /api/musicas -> Lista todas as músicas (sem as partes)
-app.get('/api/musicas', (req, res) => {
-  const musicas = musicaDAO.listarTodas();
+app.get('/api/musicas', async (req, res) => {
+  const musicas = await musicaDAO.listarTodas();
   const resumo = [];
 
   for (let i = 0; i < musicas.length; i++) {
@@ -35,9 +35,9 @@ app.get('/api/musicas', (req, res) => {
 });
 
 // 2. GET /api/musicas/:id -> Busca música por ID (com as partes)
-app.get('/api/musicas/:id', (req, res) => {
+app.get('/api/musicas/:id', async (req, res) => {
   const id = Number(req.params.id);
-  const musica = musicaDAO.buscarPorId(id);
+  const musica = await musicaDAO.buscarPorId(id);
 
   if (!musica) {
     return res.status(404).json({ erro: `Música com id ${id} não encontrada` });
@@ -47,19 +47,19 @@ app.get('/api/musicas/:id', (req, res) => {
 });
 
 // 3. POST /api/musicas -> Cria uma nova música
-app.post('/api/musicas', (req, res) => {
+app.post('/api/musicas', async (req, res) => {
   const { nome, artista } = req.body;
 
   if (!nome || !artista) {
     return res.status(400).json({ erro: 'Campos obrigatórios: nome, artista' });
   }
 
-  const novaMusica = musicaDAO.inserir(nome, artista);
+  const novaMusica = await musicaDAO.inserir(nome, artista);
   res.status(201).json(novaMusica);
 });
 
 // 4. PUT /api/musicas/:id -> Atualiza nome e artista de uma música existente
-app.put('/api/musicas/:id', (req, res) => {
+app.put('/api/musicas/:id', async (req, res) => {
   const id = Number(req.params.id);
   const { nome, artista } = req.body;
 
@@ -67,7 +67,7 @@ app.put('/api/musicas/:id', (req, res) => {
     return res.status(400).json({ erro: 'Campos obrigatórios: nome, artista' });
   }
 
-  const atualizada = musicaDAO.atualizar(id, nome, artista);
+  const atualizada = await musicaDAO.atualizar(id, nome, artista);
 
   if (!atualizada) {
     return res.status(404).json({ erro: `Música com id ${id} não encontrada` });
@@ -77,9 +77,9 @@ app.put('/api/musicas/:id', (req, res) => {
 });
 
 // 5. DELETE /api/musicas/:id -> Remove uma música pelo ID
-app.delete('/api/musicas/:id', (req, res) => {
+app.delete('/api/musicas/:id', async (req, res) => {
   const id = Number(req.params.id);
-  const removida = musicaDAO.remover(id);
+  const removida = await musicaDAO.remover(id);
 
   if (!removida) {
     return res.status(404).json({ erro: `Música com id ${id} não encontrada` });
@@ -89,7 +89,7 @@ app.delete('/api/musicas/:id', (req, res) => {
 });
 
 // 6. POST /api/musicas/:id/partes -> Adiciona uma parte (letra, tempoEspera, tag) a uma música
-app.post('/api/musicas/:id/partes', (req, res) => {
+app.post('/api/musicas/:id/partes', async (req, res) => {
   const id = Number(req.params.id);
   const { letra, tempoEspera, tag } = req.body;
 
@@ -97,16 +97,16 @@ app.post('/api/musicas/:id/partes', (req, res) => {
     return res.status(400).json({ erro: 'Campos obrigatórios: letra, tempoEspera, tag' });
   }
 
-  const musica = musicaDAO.buscarPorId(id);
+  const musica = await musicaDAO.buscarPorId(id);
 
   if (!musica) {
     return res.status(404).json({ erro: `Música com id ${id} não encontrada` });
   }
 
   const novaParte = new Parte(letra, tempoEspera, tag);
-  musicaDAO.adicionarPartes(id, novaParte);
+  await musicaDAO.adicionarPartes(id, novaParte);
 
-  res.status(201).json(musica);
+  res.status(201).json(await musicaDAO.buscarPorId(id));
 });
 
 // ==========================================

@@ -1,90 +1,144 @@
-// DAO/MusicaDAO.js
-const { Musica } = require('../karaoke/musica');
-const { Parte } = require('../karaoke/parte'); // Importando a Parte
+// Conecta este DAO ao Supabase.
+const supabase = require('./supabaseClient');
+
+// Busca uma música junto com o nome do artista e suas partes.
+const CAMPOS_DA_MUSICA =
+    'id, nome, artista:artistas(nome), partes(id, ordem, letra, tempo_espera, tag)';
+
+// Adapta os nomes das colunas do banco ao formato usado pela aplicação.
+function organizarMusica(registro) {
+    return {
+        id: registro.id,
+        nome: registro.nome,
+        artista: registro.artista.nome,
+        partes: registro.partes.map(parte => ({
+            letra: parte.letra,
+            tempoEspera: parte.tempo_espera,
+            tag: parte.tag
+        }))
+    };
+}
 
 class MusicaDAO {
-    constructor() {
-        this.musicas = [];
-        this.proximoId = 0;
-        this._carregarDadosIniciais();
+    // Lista todas as músicas com seus artistas e partes.
+    async listarTodas() {
+        const { data, error } = await supabase
+            .from('musicas')
+            .select(CAMPOS_DA_MUSICA)
+            .order('id')
+            .order('ordem', { referencedTable: 'partes' });
+
+        if (error) throw error;
+        return data.map(organizarMusica);
     }
 
-    _carregarDadosIniciais() {
-        const beijinhodoce = this.inserir('Beijinho Doce', 'As Galvão');
-        beijinhodoce.addParte(new Parte('Que beijinho doce que ele tem', 3000, 'Verso'));
-        beijinhodoce.addParte(new Parte('Depois que beijei ele, nunca mais amei ninguém', 4000, 'Refrão'));
-        beijinhodoce.addParte(new Parte('Que beijinho doce foi ele', 4000, 'Refrão'));
-        beijinhodoce.addParte(new Parte('Quem trouxe de longe pra mim', 4000, 'Refrão'));
-        beijinhodoce.addParte(new Parte('Se me abraça apertado, suspiro dobrado', 4000, 'Refrão'));
-        beijinhodoce.addParte(new Parte('Que amor sem fim!', 4000, 'Refrão'));
-        beijinhodoce.addParte(new Parte('Coração quem manda', 3000, 'Verso'));
-        beijinhodoce.addParte(new Parte('Quando a gente ama', 3000, 'Verso'));
-        beijinhodoce.addParte(new Parte('Se estou junto dele', 3000, 'Verso'));
-        beijinhodoce.addParte(new Parte('Sem dar um beijinho coração reclama', 3000, 'Verso'));
+    // Procura uma música pelo ID. Retorna null quando não encontrar.
+    async buscarPorId(id) {
+        const { data, error } = await supabase
+            .from('musicas')
+            .select(CAMPOS_DA_MUSICA)
+            .eq('id', Number(id))
+            .order('ordem', { referencedTable: 'partes' })
+            .maybeSingle();
 
-        const aindaontem = this.inserir('Ainda Ontem Chorei de Saudade', 'João Mineiro e Marciano');
-        aindaontem.addParte(new Parte('Você me pede na carta que eu desapareça', 3000, 'Verso 1'));
-        aindaontem.addParte(new Parte('Que eu nunca mais te procure e para sempre te esqueça', 3000, 'Verso 1'));
-        aindaontem.addParte(new Parte('Posso fazer sua vontade atender seu pedido', 3000, 'Verso 1'));
-        aindaontem.addParte(new Parte('Mas esquecer é bobagem é tempo perdido', 3000, 'Verso 1'));
-        aindaontem.addParte(new Parte('Ainda ontem chorei de saudade', 4000, 'Refrão'));
-        aindaontem.addParte(new Parte('Relendo a carta, sentindo o perfume', 4000, 'Refrão'));
-        aindaontem.addParte(new Parte('Mas o que fazer com essa dor que me invade?', 4000, 'Refrão'));
-         aindaontem.addParte(new Parte('Mato esse amor ou me mata o ciúme', 4000, 'Refrão'));
-        aindaontem.addParte(new Parte('O dia inteiro te odeio te busco e te caço', 3000, 'Verso 1'));
-        aindaontem.addParte(new Parte('Mas em meu sonho de noite, te beijo e te abraço', 3000, 'Verso 1'));
-         aindaontem.addParte(new Parte('Porque os sonhos são meus, ninguém rouba e nem tira', 3000, 'Verso 1'));
-          aindaontem.addParte(new Parte('Melhor sonhar na verdade que amar na mentira', 3000, 'Verso 1'));
-           aindaontem.addParte(new Parte('Ainda ontem chorei de saudade', 4000, 'Refrão'));
-            aindaontem.addParte(new Parte('Relendo a carta, sentindo o perfume', 4000, 'Refrão'));
-             aindaontem.addParte(new Parte('Mas o que fazer com essa dor que me invade?', 4000, 'Refrão'));
-             aindaontem.addParte(new Parte('Mato esse amor ou me mata o ciúme', 4000, 'Refrão'));
-            
-
+        if (error) throw error;
+        return data ? organizarMusica(data) : null;
     }
 
-    listarTodas() {
-        return this.musicas;
+    // Procura o artista pelo nome; se não existir, cadastra-o.
+    async obterIdDoArtista(nome) {
+        const { data: artista, error: erroBusca } = await supabase
+            .from('artistas')
+            .select('id')
+            .eq('nome', nome)
+            .maybeSingle();
+
+        if (erroBusca) throw erroBusca;
+        if (artista) return artista.id;
+
+        const { data: novoArtista, error: erroCadastro } = await supabase
+            .from('artistas')
+            .insert({ nome })
+            .select('id')
+            .single();
+
+        if (erroCadastro) throw erroCadastro;
+        return novoArtista.id;
     }
 
-    buscarPorId(id) {
-       return this.musicas.find(m => m.id === Number(id)) || null;
+    // Cadastra uma música ligada ao artista e devolve os dados dela.
+    async inserir(nome, artista) {
+        const artistaId = await this.obterIdDoArtista(artista);
+        const { data, error } = await supabase
+            .from('musicas')
+            .insert({ nome, artista_id: artistaId })
+            .select(CAMPOS_DA_MUSICA)
+            .single();
+
+        if (error) throw error;
+        return organizarMusica(data);
     }
 
-    inserir(nome, artista) {
-        const novaMusica = new Musica(nome, artista);
-        novaMusica.id = this.proximoId++;
-        this.musicas.push(novaMusica);
-        return novaMusica;
+    // Cadastra uma parte no final da sequência da música.
+    async adicionarPartes(idMusica, parte) {
+        const { data: ultimaParte, error: erroBusca } = await supabase
+            .from('partes')
+            .select('ordem')
+            .eq('musica_id', Number(idMusica))
+            .order('ordem', { ascending: false })
+            .limit(1)
+            .maybeSingle();
+
+        if (erroBusca) throw erroBusca;
+
+        const { error } = await supabase
+            .from('partes')
+            .insert({
+                musica_id: Number(idMusica),
+                ordem: ultimaParte ? ultimaParte.ordem + 1 : 1,
+                letra: parte.letra,
+                tempo_espera: parte.tempoEspera,
+                tag: parte.tag
+            });
+
+        if (error) throw error;
     }
 
-    
-    adicionarPartes(idMusica, parte) {
-        if (parte instanceof Parte) {
-            const musica = this.buscarPorId(idMusica);
-            if (musica != null) {
-                musica.addParte(parte);
-                return true;
-            }
-        }
-        return false;
+    // Atualiza o nome e o artista de uma música existente.
+    async atualizar(id, nome, artista) {
+        const artistaId = await this.obterIdDoArtista(artista);
+        const { data, error } = await supabase
+            .from('musicas')
+            .update({ nome, artista_id: artistaId })
+            .eq('id', Number(id))
+            .select(CAMPOS_DA_MUSICA)
+            .maybeSingle();
+
+        if (error) throw error;
+        return data ? organizarMusica(data) : null;
     }
 
-    atualizar(id, nome, artista) {
-        const musica = this.buscarPorId(id);
+    // Apaga primeiro as partes relacionadas e depois a música.
+    async remover(id) {
+        const musica = await this.buscarPorId(id);
         if (!musica) return null;
 
-        musica.nome = nome;
-        musica.artista = artista;
+        const { error: erroPartes } = await supabase
+            .from('partes')
+            .delete()
+            .eq('musica_id', Number(id));
+
+        if (erroPartes) throw erroPartes;
+
+        const { error: erroMusica } = await supabase
+            .from('musicas')
+            .delete()
+            .eq('id', Number(id));
+
+        if (erroMusica) throw erroMusica;
         return musica;
-    }
-
-    remover(id) {
-        const indice = this.musicas.findIndex(m => m.id === id);
-        if (indice === -1) return null;
-
-        return this.musicas.splice(indice, 1)[0];
     }
 }
 
+// Exporta uma instância para ser usada pelas rotas do servidor.
 module.exports = new MusicaDAO();

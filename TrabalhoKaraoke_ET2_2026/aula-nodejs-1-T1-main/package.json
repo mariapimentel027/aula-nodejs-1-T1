@@ -10,12 +10,15 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js",
     "teste": "echo SCRIPT de teste! ",
+    "seed:supabase": "node ./scripts/seedSupabase.js",
     "karaoke": "node ./karaoke/player",
-    "dev": "nodemon app"
+    "dev": "node app"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.117.2",
     "@supabase/server": "^1.8.0",
     "chalk": "^4.1.2",
+    "dotenv": "^18.0.9",
     "express": "^5.2.1"
   },
   "engines": {
